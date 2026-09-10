@@ -1,0 +1,22 @@
+What we will learn:
+
+- Version Control
+- Containers
+- CI - Automation: Github Actions
+- IaC : Terraform
+- Monitor : Prometheus / Grafana
+- CD : ArgoCD
+
+How to host our Virtual Machines:
+- AWS EC2
+- Github Codespace
+
+We need to install
+- Docker
+- Git
+- Kubectl
+- Helm
+- python
+- pip
+- aws cli
+- terraform
