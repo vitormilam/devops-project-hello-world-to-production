@@ -20,3 +20,7 @@ We need to install
 - pip
 - aws cli
 - terraform
+
+Docker commands
+- docker build -t hello-world . 
+- docker run -p 8000:5000 --name hello-world-container hello-world
