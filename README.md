@@ -60,3 +60,7 @@ Docker commands
     NAME: DOCKERHUB_TOKEN / SECRET: PASSWORD
 
 - Now the code should work in the Actions Tab.
+
+# Part 7 - Terraform to create Kubernetes on AWS
+
+- To do this, we need Terraform and aws installed in our VM/machine.
