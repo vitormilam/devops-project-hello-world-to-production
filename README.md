@@ -32,3 +32,18 @@ Docker commands
 - docker build -t hello-world . 
 - docker run -p 8000:5000 --name hello-world-container hello-world
 - 8000 is local portal and 5000 is container port.
+
+# Part 5 - Push Image to DockerHub
+
+1. Create Account
+2. Create repo in DockerHub
+    - vitormilam/hello-world
+    - Image name has to be equal to the name in dockerhub.
+    - So, our image name should be vitormilam/hello-world, not only hello-world.
+3. Create PAT (Personal Access Token) for login
+    - Account Settings -> Personal Access Tokens. -> Generate New Token.
+4. Login in the terminal
+5. Image with same repo name
+    - To change the docker image name, use this command: docker tag hello-world vitormilam/hello-world
+6. Docker push
+    - docker push vitormilam/hello-world:latest
