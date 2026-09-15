@@ -47,3 +47,16 @@ Docker commands
     - To change the docker image name, use this command: docker tag hello-world vitormilam/hello-world
 6. Docker push
     - docker push vitormilam/hello-world:latest
+
+# Part 6 - CI with GitHub Actions
+
+- I had to create this structure: .github / workflows / ci.yaml (code for building and pushing docker images automatizally using GitHub Actions).
+- Also, i had to create a PAT (Personal Access Token) only for this and add in the code.
+- Since our username and password aren't in the code because of security, it won't run in Actions tab.
+- We should do this using the safer version.
+- Go to github repository settings -> Secrets and Variables -> Actions -> New repository secret.
+- We have to type exactly we typed in the code:
+    NAME: DOCKERHUB_USERNAME / SECRET: USERNAME
+    NAME: DOCKERHUB_TOKEN / SECRET: PASSWORD
+
+- Now the code should work in the Actions Tab.
