@@ -63,4 +63,18 @@ Docker commands
 
 # Part 7 - Terraform to create Kubernetes on AWS
 
-- To do this, we need Terraform and aws installed in our VM/machine.
+- To do this, we need Terraform and aws cli installed in our VM/machine.
+- For this project i have created a IAM user.
+- After creating the user, i have created a access key so we can configure our AWS CLI.
+
+Commands:
+- aws configure
+
+- In this project, we are gonna use Terraform EKS module that is available for free in Terraform website.
+- We are gonna use EKS Managed Groud code.
+- Bu first, to create a EKS, we a need a VPC. EKS goes inside a VPC.
+
+- Search terms: terraform module EKS
+- Search terms: terraform module VPC
+
+- Parei em 01:43:12
