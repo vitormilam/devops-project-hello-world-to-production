@@ -1,4 +1,4 @@
-What we will learn:
+# Part 1 - What we will learn:
 
 - Version Control
 - Containers
@@ -7,19 +7,27 @@ What we will learn:
 - Monitor : Prometheus / Grafana
 - CD : ArgoCD
 
-How to host our Virtual Machines:
-- AWS EC2
-- Github Codespace
+# Part 2 - How to Set Up our enviroment.
 
-We need to install
-- Docker
-- Git
-- Kubectl
-- Helm
-- python
-- pip
-- aws cli
-- terraform
+How to host our Virtual Machines:
+- Azure Virtual Machines
+- AWS EC2
+- Github Codespace <-- We are gonna use this
+
+- We are gonna create a Codespace and connect to our project.
+- Inside our codespace, we are gonna install the tools below:
+    - Docker
+    - Git
+    - Kubectl
+    - Helm
+    - python (+3.12)
+    - pip
+    - aws cli
+    - terraform
+
+- If they are already installed, just check the version.
+
+# Parte 3 - 
 
 # Part 4 - Containerization with Docker
 
@@ -118,3 +126,30 @@ But how do we install Prometheus ?
 - We use Helm to install Prometheus.
 - It's a packet manager for kubernetes, like PIP for python.
 - So HELM is a packet manager that we use to install 3rd party software inside Kubernetes
+
+So we run this commands in our command line:
+- helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+- heml repo update
+- helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
+
+After creating, we can through if it worked:
+- kubectl get ns
+- kubectl get all -n monitoring
+
+- After does this, cayouyn track our metrics with Prometheus ?
+R: No, first we need to have a endpoint, like /endpoint Since we don't have it, we need to create it.
+
+So we need to install some libraries, in requirements.txt, we need to paste it:
+- prometheus-client==0.21.0
+- prometheus-flask-exporter==0.23.2
+
+So, our requirements.txt will look like this:
+flask
+prometheus-client==0.21.0
+prometheus-flask-exporter==0.23.2
+
+After this, we go to app.py so we can call the libraries and create our endpoint:
+- from prometheus_flask_exporter import PrometheusMetrics
+- metrics = PrometheusMetrics(app)  # <-- enables / metrics
+
+So, our app.py will look like this:

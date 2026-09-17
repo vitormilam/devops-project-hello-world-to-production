@@ -1,8 +1,7 @@
 Commands:
 
-- helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-- heml repo update
-
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+heml repo update
 helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
 
 Requirements:

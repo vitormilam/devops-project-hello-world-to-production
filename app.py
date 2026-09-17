@@ -1,7 +1,9 @@
-# Importing flask
+# Importing flask & Prometheus 
 from flask import Flask
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)  # <-- enables / metrics
 
 # Endpoint
 @app.route("/")
