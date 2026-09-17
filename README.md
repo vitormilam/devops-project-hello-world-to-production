@@ -77,4 +77,44 @@ Commands:
 - Search terms: terraform module EKS
 - Search terms: terraform module VPC
 
-- Parei em 01:43:12
+Commands:
+- terraform init = Initialize terraform.
+- terraform plan = It gives a list of resources that it will create for us.
+- terraform apply -auto-approved = 
+
+- After this, it will take while to set up EKS, for example, between 15 and 20 minutes.
+- To check if it worked, you can to your aws account and open EKS, in Clusters tab.
+
+- Now that we have created our Cluster, we have to initialize it.
+
+Commands:
+- aws eks update-kubeconfig --name my-cluster
+- kubectl get nodes
+- If we want to destroy our cluster, run terraform destroy -y
+
+
+# Part 8 - Deploy Application in EKS
+
+- We created a image that when executed it becomes a container.
+- We will wrap this container inside a pod, the smallest object in kubernetes.
+- After this is done, we will have 3 pods and we will use a Replica Set because if one pod or more fail, another will be created imediatly to replace it.
+- All this we will wrap up again and call this a DEPLOYMENT.
+- IMAGE -> CONTAINER -> POD -> DEPLOYMENT 
+
+- To create any resources in Kubernetes, we use a YAML cofniguration file.
+- So we create a deployment.yaml file to create all this things above (container, pods, replica set, deployment).
+
+Commands:
+- kubectl apply -f ./deployment.yaml
+- kubectl get all
+- kubectl port-forward svc/hello-world-service 8080:(hello-world-service port)
+
+
+# Part 9 - Observability: Prometheus & Grafana
+
+- Basically Prometheus get the metrics of Application/EKS.
+
+But how do we install Prometheus ?
+- We use Helm to install Prometheus.
+- It's a packet manager for kubernetes, like PIP for python.
+- So HELM is a packet manager that we use to install 3rd party software inside Kubernetes

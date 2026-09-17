@@ -1,0 +1,15 @@
+Commands:
+
+- helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+- heml repo update
+
+helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
+
+Requirements:
+    prometheus-client==0.21.0
+    prometheus-flask-exporter==0.23.2
+app.py:
+    from prometheus_flask_exporter import PrometheusMetrics
+
+
+    metrics = PrometheusMetrics(app)  # <-- enables / metrics

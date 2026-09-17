@@ -1,0 +1,87 @@
+# Kubernetes API version used for this resource
+apiVersion: apps/v1
+
+# Resource type
+# A Deployment manages ReplicaSets and Pods
+kind: Deployment
+
+metadata:
+  # Name of the Deployment
+  name: hello-world
+
+  # Namespace where the Deployment will be created (For example, dev, sandbox, qa, prod)
+  namespace: default
+
+  # Labels used to identify this Deployment
+  labels:
+    app: hello-world
+
+spec:
+
+  # Desired number of Pod replicas
+  replicas: 2
+
+  # Specifies how the Deployment finds and manages its Pods
+  selector:
+    matchLabels:
+      app: hello-world
+
+  # Pod template (blueprint used to create Pods)
+  template:
+
+    metadata:
+
+      # Labels assigned to Pods
+      # Must match the selector above
+      labels:
+        app: hello-world
+
+    spec:
+
+      # List of containers that will run inside each Pod
+      containers:
+
+      # Container name (used internally by Kubernetes)
+      - name: flask
+
+        # Docker image to pull and run
+        # Format: <dockerhub-user>/<repository>:<tag>
+        image: vitormilam/hello-world:latest
+
+        # Always check the registry for the latest image
+        # whenever a new Pod is created
+        imagePullPolicy: Always
+
+        ports:
+
+        # Port exposed by the Flask application
+        # inside the container
+        - containerPort: 5000
+
+
+    
+
+
+
+---
+
+
+
+##########SERVICE.YAML#########
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-world-service
+  namespace: default          # <-- added
+  labels:
+    app: hello-world
+    release: prometheus
+spec:
+  selector:
+    app: hello-world
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: ClusterIP
