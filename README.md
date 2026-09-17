@@ -153,3 +153,69 @@ After this, we go to app.py so we can call the libraries and create our endpoint
 - metrics = PrometheusMetrics(app)  # <-- enables / metrics
 
 So, our app.py will look like this:
+
+
+## Importing flask & Prometheus 
+from flask import Flask
+from prometheus_flask_exporter import PrometheusMetrics
+
+app = Flask(__name__)
+metrics = PrometheusMetrics(app)  # <-- enables / metrics
+
+CODE:
+## Endpoint
+@app.route("/")
+def hello():
+    return "Hello World"
+
+@app.route("/new")
+def new():
+    return "It's a new world, a new day."
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+
+
+Run commands:
+- kubectl get svc
+- kubectl port-forward svc/hello-world-service 8000:80
+
+
+- Now we need to tell prometheus which port it has to go so it can collect the metrics.
+- For this, we need to create servicemonitor.yaml with the right configuration and labels that match our service configuration in deployment.yaml
+
+Commands:
+- kubectl apply -f ./servicemonitor.yaml
+- kubectl get all -n monitoring
+
+- To see prometheus URL, we connect to service/prometheus-kube-prometheus-prometheus port
+- kubectl port-forward -n monitoring svc/prometheus-kube-prometheus-prometheu port:port
+
+To see this metric in nice dashboard, we need grafana.
+Grafana is a dashboard tool and we can have the source as Prometheus to see Prometheus matrics.
+When we installed prometheus, grafana already came pre-installed, you can see these in services, like, service/prometheus-grafana 
+When we ran:
+- helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+- heml repo update
+- helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
+
+At the beginning, you can see: 
+Get Grafana admin user password by running:
+    kubectl get secret --namespace monitoring get secrets prometheus-grafana -0 jsonpath="{.items[0].data.admin-password}" base64 --decode ; echo
+
+Now we can exexute the command above to get the password.
+
+Now we run again command:
+kubectl port-forward -n monitoring svc/prometheus-grafana port:port
+
+- After this, it will forward to Grafana and ask for the username and password that we talked above.
+    - username: admin
+    - password: 
+
+In Grafana, go to Dashboards, clink in the arrow besides the + symbol -> Import Dashboard 
+- In Find and import dashboards for common applications at grafana.com/dashboards, we can fill with code 3662 and press Load.
+(This code represents a specific dashboard that grafana provides on their own website)
+- In prometheus sections, click on it and select the default one and click on Import.
+
+
+# Part 10 - CD with ArgoCD and Extending the CI for further automation
