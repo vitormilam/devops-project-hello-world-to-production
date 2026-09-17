@@ -136,7 +136,7 @@ After creating, we can through if it worked:
 - kubectl get ns
 - kubectl get all -n monitoring
 
-- After does this, cayouyn track our metrics with Prometheus ?
+- After does this, can we track our metrics with Prometheus ?
 R: No, first we need to have a endpoint, like /endpoint Since we don't have it, we need to create it.
 
 So we need to install some libraries, in requirements.txt, we need to paste it:
