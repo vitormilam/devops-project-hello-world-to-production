@@ -440,7 +440,7 @@ terraform plan
 After reviewing the plan, we can create the infrastructure:
 
 ```bash
-terraform apply -auto-approved
+terraform apply -auto-approve
 ```
 
 The creation of the EKS cluster can take some time.
@@ -576,7 +576,7 @@ This means that the Service receives traffic on port `80` and forwards it to por
 We can access the Service locally using port forwarding:
 
 ```bash
-kubectl port-forward svc/hello-world-service 8080:<hello-world-service port>
+kubectl port-forward svc/hello-world-service 8080:80
 ```
 
 ---
@@ -745,23 +745,6 @@ and:
 
 ---
 
-## Access the Application
-
-First, check the available Services:
-
-```bash
-kubectl get svc
-```
-
-Then use port forwarding:
-
-```bash
-kubectl port-forward svc/hello-world-service 8000:80
-```
-
-Our local port `8000` is forwarded to the Kubernetes Service port `80`.
-
----
 
 ## Configure Prometheus with ServiceMonitor
 
@@ -802,7 +785,7 @@ Prometheus is available through its Kubernetes Service.
 We can use port forwarding:
 
 ```bash
-kubectl port-forward -n monitoring svc/prometheus-kube-prometheus-prometheus <port>:<port>
+kubectl port-forward -n monitoring svc/prometheus-kube-prometheus-prometheus 9090:9090
 ```
 
 This allows us to access the Prometheus interface locally.

@@ -43,47 +43,13 @@ module "vpc" {
 
 
 
-
-module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.8"  
-  
-  name = "my-vpc"
-  cidr = "10.0.0.0/16"
-  
-  azs = ["sa-east-1a", "sa-east-1b", "sa-east-1c"]
-  private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-  public_subnets = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
-  
-  enable_nat_gateway = true
-  single_nat_gateway = true  
-  
-  tags = {
-    Terraform = "true"
-    Environment = "dev"
-  }
-  
-  public_subnet_tags = {
-    "kubernetes.io/role/elb" = 1
-  }
-  
-  private_subnet_tags = {
-    "kubernetes.io/role/internal-elb" = 1
-  }
-}
-
-
-
-
-
-
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"  
   
   
   cluster_name    = "my-cluster"
-  cluster_version = "1.30"
+  cluster_version = "1.34"
   
   cluster_addons = {
     coredns = {
