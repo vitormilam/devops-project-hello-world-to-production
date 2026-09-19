@@ -887,9 +887,46 @@ We can now use Grafana to visualize the metrics collected by Prometheus.
 
 ArgoCD tracks only the changes in the YAML files and changes the production accordingly.
 
-To work, we have to configure:
+- Through their website, we can get the command to install ArgoCD through the command line.
 
-* CI.yaml
-* ArgoCD
-* Setup
+Which is:
+kubectl create namespace argocd
+kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
+After installing, how do we expose it ArgoCD UI?
+- Through service/argocd-server
+- ArgoCD doesn't work with ClusterIP.
+- In a production enviroment, we use a Load Balancer so that's what we will use.
+
+Command to fix this:
+- kubectl patch svc argocd-server -n argocd -p '{"spec":{"type":"LoadBalancer"}}'
+
+If you use this command now, you can that it's working:
+- kubectl get svc -n argocd
+
+Once we login through the EXTERNAL-IP provided, we login.
+- The user name is admin.
+
+To find out the password, you use:
+- kubectl get secret -n argocd
+- kubectl get secret -n argocd argocd-initial-admin-secret -o yaml
+
+The password is coded.
+
+- echo "password" | base64 -d
+
+New we have to create application:
+-> Create Application
+- Application name: Demo
+- Project Name: default
+- Sync Policy: Automatic
+- Enable auto-sync, prune resources and self heal.
+- Repository URL: Your repo link
+- Revision: main
+- Path: .
+
+Destination:
+- Cluster URL: Just select whatever it appears.
+- Namespace: default
+
+Click in Create

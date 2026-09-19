@@ -12,3 +12,8 @@ app.py:
 
 
     metrics = PrometheusMetrics(app)  # <-- enables / metrics
+
+ArgoCD:
+    - kubectl patch svc argocd-server -n argocd -p '{"spec":{"type":"LoadBalancer"}}'
+    - kubectl get secret argocd-secret -n argocd -o jsonpath"{.data.server\.secretkey}" | base64 -d
+
