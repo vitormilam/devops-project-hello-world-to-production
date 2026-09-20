@@ -46,7 +46,7 @@ spec:
 
         # Docker image to pull and run
         # Format: <dockerhub-user>/<repository>:<tag>
-        image: vitormilam/hello-world:2026-09-19-231411
+        image: vitormilam/hello-world:2026-09-20-135024
 
         # Always check the registry for the latest image
         # whenever a new Pod is created
