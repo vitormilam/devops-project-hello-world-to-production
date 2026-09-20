@@ -1,4 +1,8 @@
-# 🚀 The Simplest End-to-End DevOps Project | Hello World to Production
+# DevOps Project | Hello World to Production
+
+<p align="center">
+  <img src="./project_representation.png" width="800">
+</p>
 
 This project demonstrates a simple **end-to-end DevOps workflow**, starting with a basic Python application and progressing through containers, CI, Infrastructure as Code, Kubernetes, monitoring, and Continuous Deployment.
 
